@@ -28,7 +28,7 @@ class AdvertService
         return Cache::get("advert:$id");
     }
 
-    public function getFormatedPhotos(array $validated): array
+    public function getFormattedPhotos(array $validated): array
     {
         return array_map(fn ($photo) => ['url' => $photo], $validated['photos']);
     }

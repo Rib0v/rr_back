@@ -20,7 +20,7 @@ class AdvertController extends Controller
     public function store(StoreRequest $request, AdvertService $service)
     {
         $validated = $request->validated();
-        $photos = $service->getFormatedPhotos($validated);
+        $photos = $service->getFormattedPhotos($validated);
         unset($validated['photos']);
 
         $advert = Advert::create($validated);
