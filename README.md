@@ -16,7 +16,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Накатить миграции и сгенерировать конфиг
+Накатить миграции и сгенерировать контент
 
 ```bash
 php artisan migrate --seed
