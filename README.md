@@ -16,6 +16,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
+Накатить миграции и сгенерировать конфиг
+
+```bash
+php artisan migrate --seed
+```
+
 По дефолту тесты выполняются с использованием SQLite, в случае его отсутствия нужно закомментировать в файле `phpunit.xml` строки
 
 ```
