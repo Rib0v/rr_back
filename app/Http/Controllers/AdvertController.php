@@ -6,7 +6,7 @@ use App\Http\Requests\Advert\StoreRequest;
 use App\Http\Resources\Advert\IndexResource;
 use App\Http\Resources\Advert\ShowResource;
 use App\Models\Advert;
-use App\Models\Photo;
+use App\Services\AdvertService;
 use Illuminate\Http\Request;
 
 class AdvertController extends Controller
@@ -17,10 +17,10 @@ class AdvertController extends Controller
         return IndexResource::collection($adverts);
     }
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, AdvertService $service)
     {
         $validated = $request->validated();
-        $photos = array_map(fn ($photo) => ['url' => $photo], $validated['photos']);
+        $photos = $service->getFormatedPhotos($validated);
         unset($validated['photos']);
 
         $advert = Advert::create($validated);
@@ -34,8 +34,12 @@ class AdvertController extends Controller
         return response(['id' => $advert->id], 201);
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request, AdvertService $service)
     {
+        if (empty($request->query())) {
+            return $service->getCachedAdvert($id);
+        }
+
         $advert = Advert::findOrFail($id);
 
         return new ShowResource($advert);
