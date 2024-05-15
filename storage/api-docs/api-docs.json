@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API docs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/adverts": {
+            "get": {
+                "tags": [
+                    "Advert"
+                ],
+                "summary": "INDEX - список объявлений",
+                "description": "",
+                "operationId": "0685d34c5188d2004ce567aa77afc02b",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Варианты: newer/older/hiprice/lowprice",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Quia voluptatem qui ullam ab distinctio qui."
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": "164108"
+                                                    },
+                                                    "photo": {
+                                                        "type": "string",
+                                                        "example": "https://picsum.photos/640/480?random=500"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-05-14T22:40:15.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": "5"
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": "50"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Advert"
+                ],
+                "summary": "STORE - создание нового объявления",
+                "operationId": "ddad1d2bc0585814a5ece87ef36b6ffc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Тестовый товар"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100500
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Тестовое описание"
+                                    },
+                                    "photos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "https://picsum.photos/640/480?random=500"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "21"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Валидация не пройдена"
+                    }
+                }
+            }
+        },
+        "/api/adverts/{id}": {
+            "get": {
+                "tags": [
+                    "Advert"
+                ],
+                "summary": "SHOW - показ отдельного объявления",
+                "operationId": "0555e54a470cda996005340ad26a71a7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "description": "Слитно, через запятую: descr,photos",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Quia voluptatem qui ullam ab distinctio."
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": "164108"
+                                                },
+                                                "photo": {
+                                                    "type": "string",
+                                                    "example": "https://picsum.photos/640/480?random=500"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Consequatur fugiat molestiae..."
+                                                },
+                                                "photos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "https://picsum.photos/640/480?random=500"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}
